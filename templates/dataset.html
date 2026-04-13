@@ -1,0 +1,257 @@
+{% extends "base.html" %}
+
+{% block title %}Dataset Overview - Social Media Trend Analysis Dashboard{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="text-center mb-5">
+    <h1 class="main-header">
+        <i class="fas fa-database me-3"></i>
+        Dataset Overview
+    </h1>
+    <p class="sub-header">
+        Explore the Sentiment140 dataset and understand data distribution
+    </p>
+</div>
+
+<!-- Dataset Info Section -->
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="chart-container">
+            <h3 class="section-title">
+                <i class="fas fa-info-circle me-2"></i>
+                Dataset Information
+            </h3>
+            <div class="row">
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="metric-card text-center">
+                        <div class="metric-value">{{ "{:,}".format(dataset_info.total_rows) }}</div>
+                        <div class="metric-label">Total Rows</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="metric-card text-center">
+                        <div class="metric-value">{{ dataset_info.columns }}</div>
+                        <div class="metric-label">Columns</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="metric-card success text-center">
+                        <div class="metric-value">{{ "{:,}".format(dataset_info.positive_tweets) }}</div>
+                        <div class="metric-label">Positive Tweets</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="metric-card danger text-center">
+                        <div class="metric-value">{{ "{:,}".format(dataset_info.negative_tweets) }}</div>
+                        <div class="metric-label">Negative Tweets</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sentiment Distribution Chart -->
+<div class="row mb-5">
+    <div class="col-lg-6 mb-4">
+        <div class="chart-container">
+            <h3 class="section-title">
+                <i class="fas fa-chart-pie me-2"></i>
+                Sentiment Distribution
+            </h3>
+            <div class="text-center">
+                <img src="data:image/png;base64,{{ chart_base64 }}" alt="Sentiment Distribution" class="img-fluid">
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-6 mb-4">
+        <div class="chart-container">
+            <h3 class="section-title">
+                <i class="fas fa-chart-bar me-2"></i>
+                Data Statistics
+            </h3>
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <h6>Dataset Balance</h6>
+                    <div class="progress mb-2">
+                        <div class="progress-bar bg-success" style="width: {{ (dataset_info.positive_tweets / dataset_info.total_rows * 100)|round(1) }}%">
+                            {{ (dataset_info.positive_tweets / dataset_info.total_rows * 100)|round(1) }}% Positive
+                        </div>
+                        <div class="progress-bar bg-danger" style="width: {{ (dataset_info.negative_tweets / dataset_info.total_rows * 100)|round(1) }}%">
+                            {{ (dataset_info.negative_tweets / dataset_info.total_rows * 100)|round(1) }}% Negative
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-12 mb-3">
+                    <h6>Data Quality</h6>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-check-circle text-success me-2"></i>Preprocessed and cleaned</li>
+                        <li><i class="fas fa-check-circle text-success me-2"></i>Tokenized and lemmatized</li>
+                        <li><i class="fas fa-check-circle text-success me-2"></i>Stopwords removed</li>
+                        <li><i class="fas fa-check-circle text-success me-2"></i>Ready for ML training</li>
+                    </ul>
+                </div>
+                
+                <div class="col-12">
+                    <h6>Model Performance</h6>
+                    {% if evaluation %}
+                    <div class="row">
+                        <div class="col-6">
+                            <strong>Accuracy:</strong> {{ "%.2f"|format(evaluation.accuracy * 100) }}%
+                        </div>
+                        <div class="col-6">
+                            <strong>Precision:</strong> {{ "%.2f"|format(evaluation.precision * 100) }}%
+                        </div>
+                        <div class="col-6">
+                            <strong>Recall:</strong> {{ "%.2f"|format(evaluation.recall * 100) }}%
+                        </div>
+                        <div class="col-6">
+                            <strong>F1-Score:</strong> {{ "%.2f"|format(evaluation.f1_score * 100) }}%
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Sample Data Section -->
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="chart-container">
+            <h3 class="section-title">
+                <i class="fas fa-table me-2"></i>
+                Sample Data (First 10 Rows)
+            </h3>
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Tweet Text</th>
+                            <th scope="col">Sentiment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for tweet in sample_data %}
+                        <tr>
+                            <th scope="row">{{ loop.index }}</th>
+                            <td>
+                                {% if tweet.text|length > 100 %}
+                                    {{ tweet.text[:100] }}...
+                                {% else %}
+                                    {{ tweet.text }}
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if tweet.sentiment == 1 %}
+                                    <span class="badge bg-success">Positive</span>
+                                {% else %}
+                                    <span class="badge bg-danger">Negative</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Explanation Section -->
+<div class="row">
+    <div class="col-12">
+        <div class="chart-container">
+            <h3 class="section-title">
+                <i class="fas fa-info-circle me-2"></i>
+                Dataset Description
+            </h3>
+            <div class="row">
+                <div class="col-lg-6 mb-4">
+                    <h5 class="text-primary mb-3">
+                        <i class="fas fa-database me-2"></i>
+                        About Sentiment140
+                    </h5>
+                    <p>
+                        The Sentiment140 dataset contains 1.6 million labeled tweets 
+                        with positive and negative sentiments. It's widely used for 
+                        sentiment analysis research and benchmarking.
+                    </p>
+                    <p>
+                        The dataset was created by Stanford University and includes 
+                        tweets from various topics, making it ideal for training 
+                        robust sentiment analysis models.
+                    </p>
+                </div>
+                
+                <div class="col-lg-6 mb-4">
+                    <h5 class="text-success mb-3">
+                        <i class="fas fa-cogs me-2"></i>
+                        Data Processing Pipeline
+                    </h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="fas fa-arrow-right text-primary me-2"></i>
+                            <strong>Text Cleaning:</strong> URLs, mentions, hashtags removed
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-arrow-right text-primary me-2"></i>
+                            <strong>Tokenization:</strong> Text split into individual words
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-arrow-right text-primary me-2"></i>
+                            <strong>Stopword Removal:</strong> Common words filtered out
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-arrow-right text-primary me-2"></i>
+                            <strong>Lemmatization:</strong> Words reduced to root form
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-arrow-right text-primary me-2"></i>
+                            <strong>Vectorization:</strong> TF-IDF feature extraction
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-12">
+                    <div class="alert alert-info" role="alert">
+                        <i class="fas fa-lightbulb me-2"></i>
+                        <strong>Key Insight:</strong> This dataset contains labeled tweets used for training 
+                        the ML model. The model learns patterns from this data to predict 
+                        sentiment for new, unseen tweets with high accuracy.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row mt-4">
+    <div class="col-12 text-center">
+        <h3 class="section-title">
+            <i class="fas fa-rocket me-2"></i>
+            Ready to Analyze?
+        </h3>
+        <a href="/search" class="btn btn-primary btn-lg me-3">
+            <i class="fas fa-search me-2"></i>
+            Start Analysis
+        </a>
+        <a href="/comparison" class="btn btn-success btn-lg me-3">
+            <i class="fas fa-balance-scale me-2"></i>
+            Compare Keywords
+        </a>
+        <a href="/insights" class="btn btn-info btn-lg">
+            <i class="fas fa-lightbulb me-2"></i>
+            Get Insights
+        </a>
+    </div>
+</div>
+{% endblock %}

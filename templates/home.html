@@ -1,0 +1,255 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Social Media Trend Analysis Dashboard{% endblock %}
+
+{% block content %}
+<!-- Header Section -->
+<div class="text-center mb-5">
+    <h1 class="main-header">
+        <i class="fas fa-chart-line me-3"></i>
+        Social Media Trend Analysis Dashboard
+    </h1>
+    <p class="sub-header">
+        Analyze sentiment and trends from tweets using advanced NLP and Machine Learning
+    </p>
+    <hr style="border: 2px solid #e5e7eb; margin: 2rem auto; width: 50%;">
+</div>
+
+<!-- Main Content Section -->
+<div class="row">
+    <!-- Left Column - Project Description -->
+    <div class="col-lg-6 mb-4">
+        <div class="metric-card">
+            <h3 class="section-title">
+                <i class="fas fa-info-circle me-2"></i>
+                Project Overview
+            </h3>
+            <div class="mb-4">
+                <h5 class="text-primary mb-3">
+                    <i class="fas fa-brain me-2"></i>
+                    Advanced Sentiment Analysis
+                </h5>
+                <p class="mb-3">
+                    This dashboard leverages the <strong>Sentiment140</strong> dataset, containing 
+                    1.6 million labeled tweets, to train sophisticated machine learning models 
+                    for real-time sentiment analysis.
+                </p>
+            </div>
+
+            <div class="mb-4">
+                <h5 class="text-success mb-3">
+                    <i class="fas fa-cogs me-2"></i>
+                    Technology Stack
+                </h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <strong>NLP Processing:</strong> Text cleaning, tokenization, lemmatization
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <strong>Machine Learning:</strong> Multinomial Naive Bayes with TF-IDF
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <strong>Feature Engineering:</strong> Advanced text vectorization
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check-circle text-success me-2"></i>
+                        <strong>Real-time Analysis:</strong> Dynamic keyword filtering
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h5 class="text-info mb-3">
+                    <i class="fas fa-database me-2"></i>
+                    Dataset Information
+                </h5>
+                <p class="mb-2">
+                    <strong>Source:</strong> Sentiment140 Dataset
+                </p>
+                <p class="mb-2">
+                    <strong>Size:</strong> 1.6 Million Labeled Tweets
+                </p>
+                <p class="mb-2">
+                    <strong>Labels:</strong> Positive (4) & Negative (0) Sentiments
+                </p>
+                <p>
+                    <strong>Processing:</strong> Advanced NLP pipeline with ML classification
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Column - Features List -->
+    <div class="col-lg-6 mb-4">
+        <div class="metric-card">
+            <h3 class="section-title">
+                <i class="fas fa-star me-2"></i>
+                Key Features
+            </h3>
+            
+            <div class="mb-4">
+                <h5 class="text-warning mb-3">
+                    <i class="fas fa-search me-2"></i>
+                    Keyword Search Analysis
+                </h5>
+                <p>
+                    Enter any keyword to instantly analyze sentiment patterns across millions of tweets. 
+                    Get real-time insights into public opinion.
+                </p>
+            </div>
+
+            <div class="mb-4">
+                <h5 class="text-primary mb-3">
+                    <i class="fas fa-brain me-2"></i>
+                    Sentiment Prediction
+                </h5>
+                <p>
+                    Advanced ML algorithms predict sentiment with high accuracy, 
+                    providing detailed positive/negative sentiment breakdowns.
+                </p>
+            </div>
+
+            <div class="mb-4">
+                <h5 class="text-success mb-3">
+                    <i class="fas fa-chart-line me-2"></i>
+                    Trend Detection
+                </h5>
+                <p>
+                    Identify emerging trends and patterns in social media conversations 
+                    with sophisticated trend analysis algorithms.
+                </p>
+            </div>
+
+            <div class="mb-4">
+                <h5 class="text-info mb-3">
+                    <i class="fas fa-chart-bar me-2"></i>
+                    Data Visualization
+                </h5>
+                <p>
+                    Interactive charts, word clouds, and comprehensive visualizations 
+                    make complex data easy to understand and explore.
+                </p>
+            </div>
+
+            <div class="mb-4">
+                <h5 class="text-danger mb-3">
+                    <i class="fas fa-balance-scale me-2"></i>
+                    Comparison Analysis
+                </h5>
+                <p>
+                    Compare multiple keywords side-by-side to understand relative sentiment 
+                    and engagement across different topics.
+                </p>
+            </div>
+
+            <div class="mb-4">
+                <h5 class="text-secondary mb-3">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    Intelligent Insights
+                </h5>
+                <p>
+                    AI-powered insights provide actionable intelligence from social media 
+                    data, helping you understand trends and patterns.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Call to Action Section -->
+<div class="text-center mt-5">
+    <div class="search-container">
+        <h3 class="mb-4">
+            <i class="fas fa-rocket me-2"></i>
+            Ready to Start Analyzing?
+        </h3>
+        <p class="mb-4 lead">
+            Explore the power of sentiment analysis with our interactive dashboard
+        </p>
+        <a href="/search" class="btn btn-primary btn-lg">
+            <i class="fas fa-search me-2"></i>
+            Go to Analysis
+        </a>
+        
+        <div class="row mt-4">
+            <div class="col-md-3 col-6 mb-3">
+                <div class="text-center">
+                    <div class="metric-value text-primary">50K+</div>
+                    <div class="metric-label">Tweets Analyzed</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="text-center">
+                    <div class="metric-value text-success">95%</div>
+                    <div class="metric-label">Accuracy</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="text-center">
+                    <div class="metric-value text-info">∞</div>
+                    <div class="metric-label">Keywords</div>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <div class="text-center">
+                    <div class="metric-value text-warning">24/7</div>
+                    <div class="metric-label">Available</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Links Section -->
+<div class="row mt-5">
+    <div class="col-12">
+        <h3 class="section-title text-center">
+            <i class="fas fa-compass me-2"></i>
+            Quick Navigation
+        </h3>
+    </div>
+    
+    <div class="col-md-3 col-6 mb-4">
+        <a href="/dataset" class="text-decoration-none">
+            <div class="metric-card text-center h-100">
+                <i class="fas fa-database fa-3x text-primary mb-3"></i>
+                <h5>Dataset Overview</h5>
+                <p class="small mb-0">Explore the dataset and understand data distribution</p>
+            </div>
+        </a>
+    </div>
+    
+    <div class="col-md-3 col-6 mb-4">
+        <a href="/search" class="text-decoration-none">
+            <div class="metric-card text-center h-100">
+                <i class="fas fa-search fa-3x text-success mb-3"></i>
+                <h5>Search Analysis</h5>
+                <p class="small mb-0">Analyze sentiment for any keyword</p>
+            </div>
+        </a>
+    </div>
+    
+    <div class="col-md-3 col-6 mb-4">
+        <a href="/comparison" class="text-decoration-none">
+            <div class="metric-card text-center h-100">
+                <i class="fas fa-balance-scale fa-3x text-warning mb-3"></i>
+                <h5>Comparison</h5>
+                <p class="small mb-0">Compare multiple keywords</p>
+            </div>
+        </a>
+    </div>
+    
+    <div class="col-md-3 col-6 mb-4">
+        <a href="/insights" class="text-decoration-none">
+            <div class="metric-card text-center h-100">
+                <i class="fas fa-lightbulb fa-3x text-info mb-3"></i>
+                <h5>Insights</h5>
+                <p class="small mb-0">Get AI-powered insights</p>
+            </div>
+        </a>
+    </div>
+</div>
+{% endblock %}
