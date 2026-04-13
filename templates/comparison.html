@@ -1,0 +1,430 @@
+{% extends "base.html" %}
+
+{% block title %}Comparison Analysis - Social Media Trend Analysis Dashboard{% endblock %}
+
+{% block content %}
+<!-- Header -->
+<div class="text-center mb-5">
+    <h1 class="main-header">
+        <i class="fas fa-balance-scale me-3"></i>
+        Comparison Analysis
+    </h1>
+    <p class="sub-header">
+        Compare sentiment across multiple keywords
+    </p>
+</div>
+
+<!-- Input Section -->
+<div class="row mb-5">
+    <div class="col-12">
+        <div class="search-container">
+            <h3 class="text-center mb-4">
+                <i class="fas fa-balance-scale me-2"></i>
+                Enter Keywords to Compare
+            </h3>
+            <form id="comparisonForm">
+                <div class="row">
+                    <div class="col-md-8 mx-auto">
+                        <div class="mb-3">
+                            <label for="keyword1" class="form-label">Keyword 1</label>
+                            <input type="text" class="form-control" id="keyword1" placeholder="e.g., iphone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="keyword2" class="form-label">Keyword 2</label>
+                            <input type="text" class="form-control" id="keyword2" placeholder="e.g., samsung" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="keyword3" class="form-label">Keyword 3 (Optional)</label>
+                            <input type="text" class="form-control" id="keyword3" placeholder="e.g., pixel">
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-balance-scale me-2"></i>
+                                Compare Keywords
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            
+            <!-- Quick Comparison Suggestions -->
+            <div class="mt-4">
+                <h6 class="text-center mb-3">⚡ Quick Comparisons:</h6>
+                <div class="text-center">
+                    <button class="btn btn-outline-primary btn-sm m-1" onclick="quickCompare('iphone', 'samsung', 'pixel')">
+                        📱 Phone Brands
+                    </button>
+                    <button class="btn btn-outline-success btn-sm m-1" onclick="quickCompare('cricket', 'football', 'tennis')">
+                        ⚽ Sports
+                    </button>
+                    <button class="btn btn-outline-info btn-sm m-1" onclick="quickCompare('movie', 'music', 'game')">
+                        🎬 Entertainment
+                    </button>
+                    <button class="btn btn-outline-warning btn-sm m-1" onclick="quickCompare('love', 'hate', 'happy')">
+                        😊 Emotions
+                    </button>
+                    <button class="btn btn-outline-danger btn-sm m-1" onclick="quickCompare('apple', 'google', 'microsoft')">
+                        💻 Tech Giants
+                    </button>
+                    <button class="btn btn-outline-secondary btn-sm m-1" onclick="quickCompare('netflix', 'prime', 'disney')">
+                        🎥 Streaming Services
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Popular Comparison Sets -->
+            <div class="mt-4">
+                <h6 class="text-center mb-3">🔥 Popular Comparisons:</h6>
+                <div class="row">
+                    <div class="col-md-4 col-6 mb-2">
+                        <div class="card text-center p-2">
+                            <h6 class="text-primary">📱 Mobile</h6>
+                            <button class="btn btn-sm btn-link" onclick="quickCompare('iphone', 'samsung', 'oneplus')">iPhone vs Samsung vs OnePlus</button>
+                            <button class="btn btn-sm btn-link" onclick="quickCompare('android', 'ios', 'windows')">Android vs iOS vs Windows</button>
+                            <button class="btn btn-sm btn-link" onclick="quickCompare('5g', '4g', '3g')">5G vs 4G vs 3G</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-6 mb-2">
+                        <div class="card text-center p-2">
+                            <h6 class="text-success">⚽ Sports</h6>
+                            <button class="btn btn-sm btn-link" onclick="quickCompare('messi', 'ronaldo', 'neymar')">Messi vs Ronaldo vs Neymar</button>
+                            <button class="btn btn-sm btn-link" onclick="quickCompare('nba', 'nfl', 'ipl')">NBA vs NFL vs IPL</button>
+                            <button class="btn btn-sm btn-link" onclick="quickCompare('barcelona', 'madrid', 'munich')">Barcelona vs Madrid vs Munich</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-6 mb-2">
+                        <div class="card text-center p-2">
+                            <h6 class="text-info">🎬 Entertainment</h6>
+                            <button class="btn btn-sm btn-link" onclick="quickCompare('marvel', 'dc', 'starwars')">Marvel vs DC vs Star Wars</button>
+                            <button class="btn btn-sm btn-link" onclick="quickCompare('netflix', 'hulu', 'amazon')">Netflix vs Hulu vs Prime</button>
+                            <button class="btn btn-sm btn-link" onclick="quickCompare('spotify', 'apple', 'youtube')">Spotify vs Apple Music vs YouTube</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-6 mb-2">
+                        <div class="card text-center p-2">
+                            <h6 class="text-warning">😊 Emotions</h6>
+                            <button class="btn btn-sm btn-link" onclick="quickCompare('love', 'like', 'crush')">Love vs Like vs Crush</button>
+                            <button class="btn btn-sm btn-link" onclick="quickCompare('happy', 'excited', 'joyful')">Happy vs Excited vs Joyful</button>
+                            <button class="btn btn-sm btn-link" onclick="quickCompare('sad', 'depressed', 'lonely')">Sad vs Depressed vs Lonely</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-6 mb-2">
+                        <div class="card text-center p-2">
+                            <h6 class="text-danger">🏠 Lifestyle</h6>
+                            <button class="btn btn-sm btn-link" onclick="quickCompare('coffee', 'tea', 'juice')">Coffee vs Tea vs Juice</button>
+                            <button class="btn btn-sm btn-link" onclick="quickCompare('pizza', 'burger', 'pasta')">Pizza vs Burger vs Pasta</button>
+                            <button class="btn btn-sm btn-link" onclick="quickCompare('summer', 'winter', 'spring')">Summer vs Winter vs Spring</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-6 mb-2">
+                        <div class="card text-center p-2">
+                            <h6 class="text-secondary">💼 Work</h6>
+                            <button class="btn btn-sm btn-link" onclick="quickCompare('office', 'remote', 'hybrid')">Office vs Remote vs Hybrid</button>
+                            <button class="btn btn-sm btn-link" onclick="quickCompare('meeting', 'call', 'email')">Meeting vs Call vs Email</button>
+                            <button class="btn btn-sm btn-link" onclick="quickCompare('boss', 'colleague', 'client')">Boss vs Colleague vs Client</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Trending Topics Comparison -->
+            <div class="mt-4">
+                <h6 class="text-center mb-3">📈 Trending Topics:</h6>
+                <div class="text-center">
+                    <button class="btn btn-outline-primary btn-sm m-1" onclick="quickCompare('ai', 'ml', 'robotics')">
+                        🤖 AI & Technology
+                    </button>
+                    <button class="btn btn-outline-success btn-sm m-1" onclick="quickCompare('crypto', 'bitcoin', 'ethereum')">
+                        💰 Cryptocurrency
+                    </button>
+                    <button class="btn btn-outline-info btn-sm m-1" onclick="quickCompare('climate', 'environment', 'sustainability')">
+                        🌍 Environment
+                    </button>
+                    <button class="btn btn-outline-warning btn-sm m-1" onclick="quickCompare('mental', 'health', 'wellness')">
+                        🧠 Mental Health
+                    </button>
+                    <button class="btn btn-outline-danger btn-sm m-1" onclick="quickCompare('travel', 'vacation', 'holiday')">
+                        ✈️ Travel & Leisure
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Loading -->
+<div id="loading" class="loading">
+    <div class="spinner"></div>
+    <h4>Comparing keywords...</h4>
+    <p class="text-muted">Analyzing sentiment patterns</p>
+</div>
+
+<!-- Results Section -->
+<div id="results" style="display: none;">
+    <!-- Comparison Chart -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="chart-container">
+                <h4 class="section-title">
+                    <i class="fas fa-chart-bar me-2"></i>
+                    Sentiment Comparison
+                </h4>
+                <div class="text-center">
+                    <img id="comparisonChart" src="" alt="Comparison Chart" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Metrics Grid -->
+    <div class="row mb-4" id="metricsGrid">
+        <!-- Metrics will be populated here -->
+    </div>
+
+    <!-- Insights Section -->
+    <div class="row">
+        <div class="col-12">
+            <div class="chart-container">
+                <h4 class="section-title">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    Comparison Insights
+                </h4>
+                <div id="insightsList">
+                    <!-- Insights will be populated here -->
+                </div>
+                
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <h5>Detailed Analysis:</h5>
+                        <div id="detailedAnalysis" class="table-responsive">
+                            <!-- Detailed analysis table will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Instructions Section -->
+<div id="instructions" class="row">
+    <div class="col-12">
+        <div class="search-container">
+            <h3 class="text-center mb-4">
+                <i class="fas fa-info-circle me-2"></i>
+                How to Use Comparison Analysis
+            </h3>
+            
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="text-center">
+                        <i class="fas fa-keyboard fa-3x text-primary mb-3"></i>
+                        <h5>1. Enter Keywords</h5>
+                        <p>Enter 2-3 keywords you want to compare. For example: iphone vs samsung vs pixel.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="text-center">
+                        <i class="fas fa-chart-bar fa-3x text-success mb-3"></i>
+                        <h5>2. View Comparison</h5>
+                        <p>See side-by-side sentiment analysis with professional charts and metrics.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="text-center">
+                        <i class="fas fa-lightbulb fa-3x text-warning mb-3"></i>
+                        <h5>3. Get Insights</h5>
+                        <p>Understand which keyword performs better and why with AI-powered insights.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <hr class="my-4">
+            
+            <h5 class="text-center mb-3">Popular Comparisons:</h5>
+            <div class="row">
+                <div class="col-md-3 col-6 mb-3">
+                    <h6 class="text-primary">📱 Technology</h6>
+                    <p class="small">iphone vs samsung<br>android vs ios<br>google vs apple</p>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <h6 class="text-success">⚽ Sports</h6>
+                    <p class="small">cricket vs football<br>messi vs ronaldo<br>nba vs nfl</p>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <h6 class="text-info">🎬 Entertainment</h6>
+                    <p class="small">movie vs series<br>netflix vs prime<br>music vs podcast</p>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <h6 class="text-warning">😊 Emotions</h6>
+                    <p class="small">love vs hate<br>happy vs sad<br>excited vs bored</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('comparisonForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const keywords = [
+        document.getElementById('keyword1').value.trim(),
+        document.getElementById('keyword2').value.trim(),
+        document.getElementById('keyword3').value.trim()
+    ].filter(k => k !== '');
+    
+    if (keywords.length >= 2) {
+        compareKeywords(keywords);
+    } else {
+        alert('Please enter at least 2 keywords to compare');
+    }
+});
+
+function quickCompare(kw1, kw2, kw3) {
+    document.getElementById('keyword1').value = kw1;
+    document.getElementById('keyword2').value = kw2;
+    document.getElementById('keyword3').value = kw3;
+    
+    const keywords = [kw1, kw2, kw3].filter(k => k !== '');
+    compareKeywords(keywords);
+}
+
+function compareKeywords(keywords) {
+    // Show loading
+    document.getElementById('loading').style.display = 'block';
+    document.getElementById('results').style.display = 'none';
+    document.getElementById('instructions').style.display = 'none';
+    
+    // Send request
+    const formData = new FormData();
+    keywords.forEach(keyword => {
+        formData.append('keywords', keyword);
+    });
+    
+    fetch('/compare', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('instructions').style.display = 'block';
+            return;
+        }
+        
+        // Update comparison chart
+        document.getElementById('comparisonChart').src = 'data:image/png;base64,' + data.comparison_chart;
+        
+        // Update metrics grid
+        const metricsGrid = document.getElementById('metricsGrid');
+        metricsGrid.innerHTML = '';
+        
+        Object.entries(data.keywords_data).forEach(([keyword, sentimentData]) => {
+            const col = document.createElement('div');
+            col.className = 'col-md-4 col-6 mb-3';
+            
+            const cardClass = sentimentData.positive_percentage > 60 ? 'success' : 
+                           sentimentData.positive_percentage > 40 ? 'warning' : 'danger';
+            
+            col.innerHTML = `
+                <div class="metric-card ${cardClass} text-center">
+                    <h5>${keyword.toUpperCase()}</h5>
+                    <div class="metric-value">${sentimentData.positive_percentage.toFixed(1)}%</div>
+                    <div class="metric-label">Positive Sentiment</div>
+                    <hr class="my-2" style="border-color: rgba(255,255,255,0.3);">
+                    <div class="row">
+                        <div class="col-6">
+                            <small>${sentimentData.positive_count.toLocaleString()} Positive</small>
+                        </div>
+                        <div class="col-6">
+                            <small>${sentimentData.negative_count.toLocaleString()} Negative</small>
+                        </div>
+                    </div>
+                    <div class="mt-2">
+                        <small>${sentimentData.total_count.toLocaleString()} Total Tweets</small>
+                    </div>
+                </div>
+            `;
+            metricsGrid.appendChild(col);
+        });
+        
+        // Update insights
+        const insightsList = document.getElementById('insightsList');
+        insightsList.innerHTML = '';
+        data.insights.forEach(insight => {
+            insightsList.innerHTML += `
+                <div class="alert alert-info" role="alert">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    ${insight}
+                </div>
+            `;
+        });
+        
+        // Update detailed analysis table
+        const detailedAnalysis = document.getElementById('detailedAnalysis');
+        detailedAnalysis.innerHTML = `
+            <table class="table table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Keyword</th>
+                        <th>Total Tweets</th>
+                        <th>Positive</th>
+                        <th>Negative</th>
+                        <th>Positive %</th>
+                        <th>Negative %</th>
+                        <th>Rank</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${Object.entries(data.keywords_data)
+                        .sort((a, b) => b[1].positive_percentage - a[1].positive_percentage)
+                        .map(([keyword, data], index) => `
+                            <tr>
+                                <td><strong>${keyword.toUpperCase()}</strong></td>
+                                <td>${data.total_count.toLocaleString()}</td>
+                                <td class="text-success">${data.positive_count.toLocaleString()}</td>
+                                <td class="text-danger">${data.negative_count.toLocaleString()}</td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" style="width: ${data.positive_percentage}%">
+                                            ${data.positive_percentage.toFixed(1)}%
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-danger" style="width: ${data.negative_percentage}%">
+                                            ${data.negative_percentage.toFixed(1)}%
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    ${index === 0 ? '<i class="fas fa-trophy text-warning"></i> 1st' : 
+                                      index === 1 ? '<i class="fas fa-medal text-secondary"></i> 2nd' : 
+                                      '<i class="fas fa-award text-danger"></i> 3rd'}
+                                </td>
+                            </tr>
+                        `).join('')}
+                </tbody>
+            </table>
+        `;
+        
+        // Hide loading, show results
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('results').style.display = 'block';
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while comparing keywords');
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('instructions').style.display = 'block';
+    });
+}
+</script>
+{% endblock %}
