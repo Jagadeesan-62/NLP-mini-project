@@ -603,6 +603,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
+        // Check if running on Flask server or standalone
+        const isFlaskServer = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname.includes('192.168');
+
         document.getElementById('searchForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const keyword = document.getElementById('keywordInput').value.trim();
@@ -611,7 +614,7 @@
             }
         });
 
-        function analyzeKeyword(keyword) {
+        async function analyzeKeyword(keyword) {
             // Set keyword in input
             document.getElementById('keywordInput').value = keyword;
             
@@ -620,88 +623,149 @@
             document.getElementById('results').style.display = 'none';
             document.getElementById('instructions').style.display = 'none';
             
-            // Simulate API call (replace with actual API call)
-            setTimeout(() => {
-                // Mock data for demonstration
-                const mockData = {
-                    keyword: keyword,
-                    sentiment_data: {
-                        total_count: Math.floor(Math.random() * 10000) + 1000,
-                        positive_count: Math.floor(Math.random() * 5000) + 500,
-                        negative_count: Math.floor(Math.random() * 5000) + 500,
-                        positive_percentage: Math.random() * 40 + 30
-                    },
-                    positive_tweets: [
-                        `I love ${keyword}! It's amazing and fantastic!`,
-                        `${keyword} is the best thing ever happened to me.`,
-                        `Great experience with ${keyword}, highly recommend!`
-                    ],
-                    negative_tweets: [
-                        `I hate ${keyword}! Worst experience ever.`,
-                        `${keyword} is terrible, don't waste your time.`,
-                        `Very disappointed with ${keyword}, not worth it.`
-                    ],
-                    top_keywords: [
-                        [keyword, 100],
-                        ['amazing', 45],
-                        ['great', 38],
-                        ['love', 32],
-                        ['best', 28]
-                    ]
-                };
-                
-                // Update metrics
-                document.getElementById('totalTweets').textContent = mockData.sentiment_data.total_count.toLocaleString();
-                document.getElementById('positiveTweets').textContent = mockData.sentiment_data.positive_count.toLocaleString();
-                document.getElementById('negativeTweets').textContent = mockData.sentiment_data.negative_count.toLocaleString();
-                document.getElementById('sentimentPercent').textContent = mockData.sentiment_data.positive_percentage.toFixed(1) + '%';
-                
-                // Update tweets
-                const positiveTweetsList = document.getElementById('positiveTweetsList');
-                positiveTweetsList.innerHTML = '';
-                mockData.positive_tweets.forEach(tweet => {
-                    positiveTweetsList.innerHTML += `
-                        <div class="tweet-container">
-                            <strong>Positive:</strong> ${tweet}
-                        </div>
-                    `;
-                });
-                
-                const negativeTweetsList = document.getElementById('negativeTweetsList');
-                negativeTweetsList.innerHTML = '';
-                mockData.negative_tweets.forEach(tweet => {
-                    negativeTweetsList.innerHTML += `
-                        <div class="tweet-container negative">
-                            <strong>Negative:</strong> ${tweet}
-                        </div>
-                    `;
-                });
-                
-                // Update insight
-                const insightBox = document.getElementById('insightBox');
-                const pos_pct = mockData.sentiment_data.positive_percentage;
-                let insight, color;
-                
-                if (pos_pct > 60) {
-                    insight = `Very Positive Response: '${keyword}' generates highly positive sentiment (${pos_pct.toFixed(1)}% positive)`;
-                    color = "#10b981";
-                } else if (pos_pct > 45) {
-                    insight = `Mixed Reactions: '${keyword}' shows divided opinions (${pos_pct.toFixed(1)}% positive)`;
-                    color = "#f59e0b";
-                } else {
-                    insight = `Negative Trend: '${keyword}' tends to generate negative responses (${pos_pct.toFixed(1)}% positive)`;
-                    color = "#ef4444";
+            if (isFlaskServer) {
+                // Use Flask API
+                try {
+                    const response = await fetch('/analyze', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: 'keyword=' + encodeURIComponent(keyword)
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.error) {
+                        alert(data.error);
+                        document.getElementById('loading').style.display = 'none';
+                        document.getElementById('instructions').style.display = 'block';
+                        return;
+                    }
+                    
+                    // Update with real Flask data
+                    updateResults(data);
+                    
+                } catch (error) {
+                    console.error('Error:', error);
+                    // Fallback to mock data if Flask API fails
+                    useMockData(keyword);
                 }
-                
-                insightBox.innerHTML = insight;
-                insightBox.style.background = `linear-gradient(135deg, ${color} 0%, ${color}dd 100%)`;
-                
-                // Hide loading, show results
-                document.getElementById('loading').style.display = 'none';
-                document.getElementById('results').style.display = 'block';
-                
-            }, 2000); // Simulate 2 second loading time
+            } else {
+                // Use mock data for GitHub Pages
+                useMockData(keyword);
+            }
         }
+
+        function updateResults(data) {
+            // Update metrics
+            document.getElementById('totalTweets').textContent = data.sentiment_data.total_count.toLocaleString();
+            document.getElementById('positiveTweets').textContent = data.sentiment_data.positive_count.toLocaleString();
+            document.getElementById('negativeTweets').textContent = data.sentiment_data.negative_count.toLocaleString();
+            document.getElementById('sentimentPercent').textContent = data.sentiment_data.positive_percentage.toFixed(1) + '%';
+            
+            // Update charts if available
+            if (data.sentiment_chart) {
+                document.getElementById('sentimentChart').src = 'data:image/png;base64,' + data.sentiment_chart;
+            }
+            if (data.wordcloud_chart) {
+                document.getElementById('wordcloudChart').src = 'data:image/png;base64,' + data.wordcloud_chart;
+            }
+            
+            // Update tweets
+            const positiveTweetsList = document.getElementById('positiveTweetsList');
+            positiveTweetsList.innerHTML = '';
+            data.positive_tweets.forEach(tweet => {
+                positiveTweetsList.innerHTML += `
+                    <div class="tweet-container">
+                        <strong>Positive:</strong> ${tweet}
+                    </div>
+                `;
+            });
+            
+            const negativeTweetsList = document.getElementById('negativeTweetsList');
+            negativeTweetsList.innerHTML = '';
+            data.negative_tweets.forEach(tweet => {
+                negativeTweetsList.innerHTML += `
+                    <div class="tweet-container negative">
+                        <strong>Negative:</strong> ${tweet}
+                    </div>
+                `;
+            });
+            
+            // Update insight
+            const insightBox = document.getElementById('insightBox');
+            insightBox.innerHTML = data.insight;
+            insightBox.style.background = data.insight_color;
+            
+            // Hide loading, show results
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('results').style.display = 'block';
+        }
+
+        function useMockData(keyword) {
+            // Mock data for demonstration
+            const mockData = {
+                keyword: keyword,
+                sentiment_data: {
+                    total_count: Math.floor(Math.random() * 10000) + 1000,
+                    positive_count: Math.floor(Math.random() * 5000) + 500,
+                    negative_count: Math.floor(Math.random() * 5000) + 500,
+                    positive_percentage: Math.random() * 40 + 30
+                },
+                positive_tweets: [
+                    `I love ${keyword}! It's amazing and fantastic!`,
+                    `${keyword} is the best thing ever happened to me.`,
+                    `Great experience with ${keyword}, highly recommend!`
+                ],
+                negative_tweets: [
+                    `I hate ${keyword}! Worst experience ever.`,
+                    `${keyword} is terrible, don't waste your time.`,
+                    `Very disappointed with ${keyword}, not worth it.`
+                ],
+                insight: `Demo Mode: '${keyword}' shows mixed sentiment with ${Math.floor(Math.random() * 40 + 30).toFixed(1)}% positive responses`,
+                insight_color: "#f59e0b"
+            };
+            
+            // Add demo mode indicator
+            mockData.insight = `Demo Mode: ${mockData.insight}`;
+            
+            setTimeout(() => {
+                updateResults(mockData);
+            }, 1500); // Simulate loading time
+        }
+
+        // Update navigation links for standalone mode
+        if (!isFlaskServer) {
+            // Update navigation to show demo mode
+            const navLinks = document.querySelectorAll('.nav-link');
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') && link.getAttribute('href') !== '/') {
+                    link.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        alert('This page is available in the full Flask application.\n\nTo access all features:\n1. Run: python app.py\n2. Visit: http://localhost:5000');
+                    });
+                }
+            });
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl/Cmd + Enter to search
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                const keyword = document.getElementById('keywordInput').value.trim();
+                if (keyword) {
+                    analyzeKeyword(keyword);
+                }
+            }
+            
+            // Escape to clear
+            if (e.key === 'Escape') {
+                document.getElementById('keywordInput').value = '';
+                document.getElementById('keywordInput').focus();
+            }
+        });
     </script>
 </body>
 </html>
