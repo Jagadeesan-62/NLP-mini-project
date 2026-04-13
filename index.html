@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social Media Trend Analysis - NLP Project</title>
-    <meta name="description" content="Advanced sentiment analysis dashboard using NLP and Machine Learning to analyze Twitter trends and sentiments">
-    <meta name="keywords" content="NLP, sentiment analysis, machine learning, twitter analysis, flask dashboard, python">
-    <meta name="author" content="NLP Mini Project">
+    <title>Social Media Trend Analysis Dashboard</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -28,61 +25,40 @@
             min-height: 100vh;
         }
 
-        .hero-section {
+        .navbar {
             background: var(--primary-gradient);
-            color: white;
-            padding: 4rem 0;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-            opacity: 0.3;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .main-title {
-            font-size: 3.5rem;
+        .navbar-brand {
             font-weight: 700;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-size: 1.5rem;
         }
 
-        .subtitle {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .feature-card {
-            background: white;
-            border-radius: 1rem;
-            padding: 2rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        .nav-link {
+            font-weight: 500;
             transition: all 0.3s ease;
-            height: 100%;
-            border-left: 4px solid #667eea;
+            border-radius: 0.5rem;
+            margin: 0 0.25rem;
+            color: rgba(255,255,255,0.8) !important;
         }
 
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        .nav-link:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+            color: white !important;
         }
 
-        .feature-icon {
+        .nav-link.active {
+            background: rgba(255,255,255,0.2);
+            color: white !important;
+        }
+
+        .main-header {
             font-size: 3rem;
+            font-weight: 700;
+            color: #1f2937;
+            text-align: center;
             margin-bottom: 1rem;
             background: var(--primary-gradient);
             -webkit-background-clip: text;
@@ -90,7 +66,141 @@
             background-clip: text;
         }
 
-        .tech-badge {
+        .sub-header {
+            font-size: 1.2rem;
+            color: #6b7280;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid #667eea;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .metric-card.primary {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .metric-card.success {
+            background: var(--success-gradient);
+            color: white;
+        }
+
+        .metric-card.danger {
+            background: var(--danger-gradient);
+            color: white;
+        }
+
+        .metric-card.warning {
+            background: var(--warning-gradient);
+            color: white;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .search-container {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 2rem;
+        }
+
+        .insight-box {
+            background: var(--info-gradient);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            border-left: 5px solid #0ea5e9;
+            margin: 1rem 0;
+            font-weight: 500;
+        }
+
+        .tweet-container {
+            background: #f8fafc;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-left: 3px solid #3b82f6;
+        }
+
+        .tweet-container.negative {
+            border-left-color: #ef4444;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .keyword-tag {
             background: var(--primary-gradient);
             color: white;
             padding: 0.5rem 1rem;
@@ -99,61 +209,13 @@
             font-weight: 500;
             margin: 0.25rem;
             display: inline-block;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 3rem;
-            color: #1f2937;
-        }
-
-        .stats-card {
-            background: white;
-            border-radius: 1rem;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
-        .stats-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .stats-number {
-            font-size: 3rem;
-            font-weight: 700;
-            background: var(--primary-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .demo-section {
-            background: white;
-            border-radius: 1rem;
-            padding: 3rem;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        .btn-primary-custom {
-            background: var(--primary-gradient);
-            border: none;
-            border-radius: 0.5rem;
-            font-weight: 600;
-            padding: 0.75rem 2rem;
-            transition: all 0.3s ease;
-            color: white;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-primary-custom:hover {
+        .keyword-tag:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-            color: white;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
         }
 
         .footer {
@@ -162,296 +224,377 @@
             padding: 2rem 0;
             margin-top: 3rem;
         }
-
-        .code-block {
-            background: #1f2937;
-            color: #f3f4f6;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            font-family: 'Courier New', monospace;
-            margin: 1rem 0;
-        }
     </style>
 </head>
 <body>
-    <!-- Hero Section -->
-    <section class="hero-section">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <div class="hero-content">
-                <h1 class="main-title">
-                    <i class="fas fa-chart-line me-3"></i>
-                    Social Media Trend Analysis
-                </h1>
-                <p class="subtitle">
-                    Advanced NLP-powered dashboard for analyzing Twitter sentiment and trends using Machine Learning
-                </p>
-                <div class="mb-4">
-                    <a href="#features" class="btn btn-light btn-lg me-3">
-                        <i class="fas fa-rocket me-2"></i>
-                        Explore Features
-                    </a>
-                    <a href="#setup" class="btn btn-outline-light btn-lg">
-                        <i class="fas fa-cog me-2"></i>
-                        Setup Guide
-                    </a>
-                </div>
-                <div class="mt-3">
-                    <span class="tech-badge">Python</span>
-                    <span class="tech-badge">Flask</span>
-                    <span class="tech-badge">NLP</span>
-                    <span class="tech-badge">Machine Learning</span>
-                    <span class="tech-badge">Scikit-learn</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="py-5">
-        <div class="container">
-            <h2 class="section-title">
-                <i class="fas fa-star me-2"></i>
-                Key Features
-            </h2>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-brain"></i>
-                        </div>
-                        <h4>Advanced NLP Processing</h4>
-                        <p>Sophisticated text preprocessing including tokenization, stopwords removal, and lemmatization for accurate sentiment analysis.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-chart-bar"></i>
-                        </div>
-                        <h4>Real-time Analytics</h4>
-                        <p>Interactive dashboard with real-time sentiment analysis, trend detection, and comprehensive visualizations.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-search"></i>
-                        </div>
-                        <h4>Dynamic Keyword Analysis</h4>
-                        <p>Analyze any keyword or topic with instant sentiment breakdown and trending keyword identification.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-balance-scale"></i>
-                        </div>
-                        <h4>Multi-Topic Comparison</h4>
-                        <p>Compare sentiment across multiple keywords simultaneously with professional comparison charts.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-lightbulb"></i>
-                        </div>
-                        <h4>AI-Powered Insights</h4>
-                        <p>Intelligent insights generation with pattern recognition and actionable recommendations.</p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fas fa-cloud"></i>
-                        </div>
-                        <h4>Word Cloud Visualization</h4>
-                        <p>Beautiful word clouds showing trending terms and topics for visual sentiment analysis.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Statistics Section -->
-    <section class="py-5 bg-light">
-        <div class="container">
-            <h2 class="section-title">
-                <i class="fas fa-chart-pie me-2"></i>
-                Project Statistics
-            </h2>
-            <div class="row">
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="stats-card">
-                        <div class="stats-number">1.6M+</div>
-                        <h5>Tweets Analyzed</h5>
-                        <p class="text-muted">Sentiment140 dataset</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="stats-card">
-                        <div class="stats-number">75%</div>
-                        <h5>Model Accuracy</h5>
-                        <p class="text-muted">Naive Bayes classifier</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="stats-card">
-                        <div class="stats-number">5</div>
-                        <h5>Dashboard Pages</h5>
-                        <p class="text-muted">Complete analytics suite</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-4">
-                    <div class="stats-card">
-                        <div class="stats-number">150+</div>
-                        <h5>Analysis Options</h5>
-                        <p class="text-muted">Keywords and topics</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Setup Section -->
-    <section id="setup" class="py-5">
-        <div class="container">
-            <h2 class="section-title">
-                <i class="fas fa-cog me-2"></i>
-                Quick Setup Guide
-            </h2>
-            <div class="demo-section">
-                <h3 class="mb-4">
-                    <i class="fas fa-terminal me-2"></i>
-                    Get Started in Minutes
-                </h3>
-                
-                <div class="row">
-                    <div class="col-lg-6 mb-4">
-                        <h5><i class="fas fa-download me-2"></i>1. Clone Repository</h5>
-                        <div class="code-block">
-git clone https://github.com/yourusername/nlp-mini-project.git
-cd nlp-mini-project
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <h5><i class="fas fa-flask me-2"></i>2. Install Dependencies</h5>
-                        <div class="code-block">
-pip install -r requirements.txt
-                        </div>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <h5><i class="fas fa-database me-2"></i>3. Download Dataset</h5>
-                        <p>Download the Sentiment140 dataset and place it as <code>sentiment140.csv</code> in the project root.</p>
-                        <a href="http://help.sentiment140.com/for-students" class="btn btn-primary-custom btn-sm" target="_blank">
-                            <i class="fas fa-external-link-alt me-2"></i>
-                            Download Dataset
+            <a class="navbar-brand" href="/">
+                <i class="fas fa-chart-line me-2"></i>
+                Analytics Dashboard
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/">
+                            <i class="fas fa-home me-1"></i> Home
                         </a>
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <h5><i class="fas fa-play me-2"></i>4. Run Application</h5>
-                        <div class="code-block">
-python app.py
-                        </div>
-                        <p class="text-muted">Then visit <code>http://localhost:5000</code></p>
-                    </div>
-                </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#dataset">
+                            <i class="fas fa-database me-1"></i> Dataset
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#search">
+                            <i class="fas fa-search me-1"></i> Search
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#comparison">
+                            <i class="fas fa-balance-scale me-1"></i> Compare
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#insights">
+                            <i class="fas fa-lightbulb me-1"></i> Insights
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-                <div class="text-center mt-4">
-                    <h4>Dashboard Pages</h4>
-                    <div class="row mt-3">
-                        <div class="col-md-2 col-4 mb-2">
-                            <div class="text-center">
-                                <i class="fas fa-home fa-2x text-primary mb-2"></i>
-                                <p class="small"><strong>Home</strong><br>Overview</p>
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <!-- Header -->
+        <div class="text-center mb-5">
+            <h1 class="main-header">
+                <i class="fas fa-search me-3"></i>
+                Social Media Trend Analysis Dashboard
+            </h1>
+            <p class="sub-header">
+                Analyze sentiment and trends from tweets using advanced NLP and Machine Learning
+            </p>
+            <hr style="border: 2px solid #e5e7eb; margin: 2rem auto; width: 50%;">
+        <!-- Search Section -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="search-container">
+                    <h3 class="text-center mb-4">
+                        <i class="fas fa-search me-2"></i>
+                        Enter Keyword to Analyze
+                    </h3>
+                    <form id="searchForm">
+                        <div class="row">
+                            <div class="col-md-8 mx-auto">
+                                <div class="input-group input-group-lg">
+                                    <input type="text" 
+                                           class="form-control" 
+                                           id="keywordInput" 
+                                           placeholder="Enter keyword (e.g., iphone, IPL, movie, cricket, love, happy, sad, phone)"
+                                           required>
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="fas fa-search me-2"></i>
+                                        Analyze
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-md-2 col-4 mb-2">
-                            <div class="text-center">
-                                <i class="fas fa-database fa-2x text-success mb-2"></i>
-                                <p class="small"><strong>Dataset</strong><br>Explore data</p>
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-4 mb-2">
-                            <div class="text-center">
-                                <i class="fas fa-search fa-2x text-info mb-2"></i>
-                                <p class="small"><strong>Search</strong><br>Analyze keywords</p>
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-4 mb-2">
-                            <div class="text-center">
-                                <i class="fas fa-balance-scale fa-2x text-warning mb-2"></i>
-                                <p class="small"><strong>Compare</strong><br>Side-by-side</p>
-                            </div>
-                        </div>
-                        <div class="col-md-2 col-4 mb-2">
-                            <div class="text-center">
-                                <i class="fas fa-lightbulb fa-2x text-danger mb-2"></i>
-                                <p class="small"><strong>Insights</strong><br>AI analysis</p>
-                            </div>
+                    </form>
+                    
+                    <!-- Popular Keywords -->
+                    <div class="mt-4">
+                        <h6 class="text-center mb-3">Trending Keywords:</h6>
+                        <div class="text-center">
+                            <span class="keyword-tag" onclick="analyzeKeyword('ipl')">ipl</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('iphone')">iphone</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('movie')">movie</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('cricket')">cricket</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('love')">love</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('happy')">happy</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('sad')">sad</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('phone')">phone</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('samsung')">samsung</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('android')">android</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('netflix')">netflix</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('music')">music</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('game')">game</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('food')">food</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('travel')">travel</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('work')">work</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('school')">school</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('friend')">friend</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('family')">family</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('weather')">weather</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('money')">money</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('health')">health</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('sport')">sport</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('team')">team</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('player')">player</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('win')">win</span>
+                            <span class="keyword-tag" onclick="analyzeKeyword('lose')">lose</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Tech Stack Section -->
-    <section class="py-5 bg-light">
-        <div class="container">
-            <h2 class="section-title">
-                <i class="fas fa-layer-group me-2"></i>
-                Technology Stack
-            </h2>
+        <!-- Loading -->
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <h4>Analyzing sentiment...</h4>
+            <p class="text-muted">This may take a few moments</p>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results" style="display: none;">
+            <!-- Metrics Row -->
+            <div class="row mb-4">
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="metric-card primary text-center">
+                        <div class="metric-value" id="totalTweets">-</div>
+                        <div class="metric-label">Total Tweets</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="metric-card success text-center">
+                        <div class="metric-value" id="positiveTweets">-</div>
+                        <div class="metric-label">Positive Tweets</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="metric-card danger text-center">
+                        <div class="metric-value" id="negativeTweets">-</div>
+                        <div class="metric-label">Negative Tweets</div>
+                    </div>
+                </div>
+                <div class="col-md-3 col-6 mb-3">
+                    <div class="metric-card warning text-center">
+                        <div class="metric-value" id="sentimentPercent">-</div>
+                        <div class="metric-label">Sentiment %</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Graphs Section -->
+            <div class="row mb-4">
+                <div class="col-lg-6 mb-4">
+                    <div class="chart-container">
+                        <h4 class="section-title">
+                            <i class="fas fa-chart-bar me-2"></i>
+                            Sentiment Distribution
+                        </h4>
+                        <div class="text-center">
+                            <img id="sentimentChart" src="" alt="Sentiment Chart" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="chart-container">
+                        <h4 class="section-title">
+                            <i class="fas fa-cloud me-2"></i>
+                            Trending Words
+                        </h4>
+                        <div class="text-center">
+                            <img id="wordcloudChart" src="" alt="Word Cloud" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sample Tweets Section -->
+            <div class="row mb-4">
+                <div class="col-lg-6 mb-4">
+                    <div class="chart-container">
+                        <h4 class="section-title">
+                            <i class="fas fa-smile me-2 text-success"></i>
+                            Sample Positive Tweets
+                        </h4>
+                        <div id="positiveTweetsList">
+                            <!-- Positive tweets will be populated here -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4">
+                    <div class="chart-container">
+                        <h4 class="section-title">
+                            <i class="fas fa-frown me-2 text-danger"></i>
+                            Sample Negative Tweets
+                        </h4>
+                        <div id="negativeTweetsList">
+                            <!-- Negative tweets will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Insights Section -->
             <div class="row">
-                <div class="col-lg-6 mb-4">
-                    <h4><i class="fas fa-code me-2"></i>Backend Technologies</h4>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i><strong>Python</strong> - Core programming language</li>
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i><strong>Flask</strong> - Web framework</li>
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i><strong>Scikit-learn</strong> - Machine learning</li>
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i><strong>NLTK</strong> - Natural language processing</li>
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i><strong>Pandas</strong> - Data manipulation</li>
-                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i><strong>NumPy</strong> - Numerical computing</li>
-                    </ul>
-                </div>
-                <div class="col-lg-6 mb-4">
-                    <h4><i class="fas fa-paint-brush me-2"></i>Frontend Technologies</h4>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><i class="fas fa-check text-info me-2"></i><strong>Bootstrap 5</strong> - Responsive design</li>
-                        <li class="mb-2"><i class="fas fa-check text-info me-2"></i><strong>Font Awesome</strong> - Icons</li>
-                        <li class="mb-2"><i class="fas fa-check text-info me-2"></i><strong>Matplotlib</strong> - Charts and graphs</li>
-                        <li class="mb-2"><i class="fas fa-check text-info me-2"></i><strong>WordCloud</strong> - Text visualization</li>
-                        <li class="mb-2"><i class="fas fa-check text-info me-2"></i><strong>Seaborn</strong> - Statistical plots</li>
-                        <li class="mb-2"><i class="fas fa-check text-info me-2"></i><strong>JavaScript</strong> - Interactive features</li>
-                    </ul>
+                <div class="col-12">
+                    <div class="chart-container">
+                        <h4 class="section-title">
+                            <i class="fas fa-lightbulb me-2"></i>
+                            Key Insights
+                        </h4>
+                        <div id="insightBox" class="insight-box">
+                            <!-- Insight will be populated here -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+
+        <!-- Instructions Section (shown when no results) -->
+        <div id="instructions" class="row">
+            <div class="col-12">
+                <div class="search-container">
+                    <h3 class="text-center mb-4">
+                        <i class="fas fa-info-circle me-2"></i>
+                        How to Use This Dashboard
+                    </h3>
+                    
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="text-center">
+                                <i class="fas fa-keyboard fa-3x text-primary mb-3"></i>
+                                <h5>1. Enter Keyword</h5>
+                                <p>Type any keyword in the search box above. Examples: iphone, IPL, movie, love, happy, sad, etc.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-4">
+                            <div class="text-center">
+                                <i class="fas fa-chart-line fa-3x text-success mb-3"></i>
+                                <h5>2. View Analytics</h5>
+                                <p>See sentiment distribution charts, trending keywords, word clouds, and professional metrics.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4 mb-4">
+                            <div class="text-center">
+                                <i class="fas fa-lightbulb fa-3x text-warning mb-3"></i>
+                                <h5>3. Explore Insights</h5>
+                                <p>Get sample tweets with sentiment, key trend analysis, and data-driven recommendations.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr class="my-4">
+                    
+                    <h5 class="text-center mb-3">Try These Keywords:</h5>
+                    <div class="row">
+                        <div class="col-md-3 col-6 mb-3">
+                            <h6 class="text-primary">Technology</h6>
+                            <p class="small">iphone, phone, app, computer, tech</p>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <h6 class="text-success">Sports</h6>
+                            <p class="small">cricket, match, game, team, player</p>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <h6 class="text-info">Entertainment</h6>
+                            <p class="small">movie, film, music, show, watch</p>
+                        </div>
+                        <div class="col-md-3 col-6 mb-3">
+                            <h6 class="text-warning">Emotions</h6>
+                            <p class="small">love, happy, sad, hate, excited</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Overview Section -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="search-container">
+                    <h3 class="text-center mb-4">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Project Overview
+                    </h3>
+                    <div class="row">
+                        <div class="col-lg-6 mb-4">
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-brain me-2"></i>
+                                Advanced Sentiment Analysis
+                            </h5>
+                            <p class="mb-3">
+                                This dashboard leverages the <strong>Sentiment140</strong> dataset, containing 
+                                1.6 million labeled tweets, to train sophisticated machine learning models 
+                                for real-time sentiment analysis.
+                            </p>
+                        </div>
+                        <div class="col-lg-6 mb-4">
+                            <h5 class="text-success mb-3">
+                                <i class="fas fa-cogs me-2"></i>
+                                Technology Stack
+                            </h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    <strong>NLP Processing:</strong> Text cleaning, tokenization, lemmatization
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    <strong>Machine Learning:</strong> Multinomial Naive Bayes with TF-IDF
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    <strong>Feature Engineering:</strong> Advanced text vectorization
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <h6 class="mb-3">Dataset Statistics:</h6>
+                        <div class="row">
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="text-center">
+                                    <div class="metric-value text-primary">1.6M+</div>
+                                    <div class="metric-label">Tweets Analyzed</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="text-center">
+                                    <div class="metric-value text-success">75%</div>
+                                    <div class="metric-label">Model Accuracy</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="text-center">
+                                    <div class="metric-value text-info">5</div>
+                                    <div class="metric-label">Dashboard Pages</div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="text-center">
+                                    <div class="metric-value text-warning">150+</div>
+                                    <div class="metric-label">Analysis Options</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container text-center">
-            <div class="mb-3">
-                <h4><i class="fas fa-chart-line me-2"></i>Social Media Trend Analysis Dashboard</h4>
-                <p class="mb-0">Advanced NLP and Machine Learning for Twitter Sentiment Analysis</p>
-            </div>
-            <div class="mb-3">
-                <a href="https://github.com/yourusername/nlp-mini-project" class="btn btn-light btn-sm me-2" target="_blank">
-                    <i class="fab fa-github me-2"></i>
-                    GitHub Repository
-                </a>
-                <a href="#" class="btn btn-light btn-sm">
-                    <i class="fas fa-file-alt me-2"></i>
-                    Documentation
-                </a>
-            </div>
-            <hr class="my-3" style="border-color: rgba(255,255,255,0.3);">
             <p class="mb-0">
-                <i class="fas fa-code me-2"></i>
-                Built with Python, Flask, and ML | 
-                <i class="fas fa-heart text-danger mx-1"></i>
-                NLP Mini Project
+                <i class="fas fa-chart-line me-2"></i>
+                Social Media Trend Analysis Dashboard
+                <span class="ms-3">
+                    <i class="fas fa-code me-1"></i>
+                    Built with Flask & ML
+                </span>
             </p>
         </div>
     </footer>
@@ -460,42 +603,105 @@ python app.py
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const keyword = document.getElementById('keywordInput').value.trim();
+            if (keyword) {
+                analyzeKeyword(keyword);
+            }
         });
 
-        // Add animation to cards on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+        function analyzeKeyword(keyword) {
+            // Set keyword in input
+            document.getElementById('keywordInput').value = keyword;
+            
+            // Show loading
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('instructions').style.display = 'none';
+            
+            // Simulate API call (replace with actual API call)
+            setTimeout(() => {
+                // Mock data for demonstration
+                const mockData = {
+                    keyword: keyword,
+                    sentiment_data: {
+                        total_count: Math.floor(Math.random() * 10000) + 1000,
+                        positive_count: Math.floor(Math.random() * 5000) + 500,
+                        negative_count: Math.floor(Math.random() * 5000) + 500,
+                        positive_percentage: Math.random() * 40 + 30
+                    },
+                    positive_tweets: [
+                        `I love ${keyword}! It's amazing and fantastic!`,
+                        `${keyword} is the best thing ever happened to me.`,
+                        `Great experience with ${keyword}, highly recommend!`
+                    ],
+                    negative_tweets: [
+                        `I hate ${keyword}! Worst experience ever.`,
+                        `${keyword} is terrible, don't waste your time.`,
+                        `Very disappointed with ${keyword}, not worth it.`
+                    ],
+                    top_keywords: [
+                        [keyword, 100],
+                        ['amazing', 45],
+                        ['great', 38],
+                        ['love', 32],
+                        ['best', 28]
+                    ]
+                };
+                
+                // Update metrics
+                document.getElementById('totalTweets').textContent = mockData.sentiment_data.total_count.toLocaleString();
+                document.getElementById('positiveTweets').textContent = mockData.sentiment_data.positive_count.toLocaleString();
+                document.getElementById('negativeTweets').textContent = mockData.sentiment_data.negative_count.toLocaleString();
+                document.getElementById('sentimentPercent').textContent = mockData.sentiment_data.positive_percentage.toFixed(1) + '%';
+                
+                // Update tweets
+                const positiveTweetsList = document.getElementById('positiveTweetsList');
+                positiveTweetsList.innerHTML = '';
+                mockData.positive_tweets.forEach(tweet => {
+                    positiveTweetsList.innerHTML += `
+                        <div class="tweet-container">
+                            <strong>Positive:</strong> ${tweet}
+                        </div>
+                    `;
+                });
+                
+                const negativeTweetsList = document.getElementById('negativeTweetsList');
+                negativeTweetsList.innerHTML = '';
+                mockData.negative_tweets.forEach(tweet => {
+                    negativeTweetsList.innerHTML += `
+                        <div class="tweet-container negative">
+                            <strong>Negative:</strong> ${tweet}
+                        </div>
+                    `;
+                });
+                
+                // Update insight
+                const insightBox = document.getElementById('insightBox');
+                const pos_pct = mockData.sentiment_data.positive_percentage;
+                let insight, color;
+                
+                if (pos_pct > 60) {
+                    insight = `Very Positive Response: '${keyword}' generates highly positive sentiment (${pos_pct.toFixed(1)}% positive)`;
+                    color = "#10b981";
+                } else if (pos_pct > 45) {
+                    insight = `Mixed Reactions: '${keyword}' shows divided opinions (${pos_pct.toFixed(1)}% positive)`;
+                    color = "#f59e0b";
+                } else {
+                    insight = `Negative Trend: '${keyword}' tends to generate negative responses (${pos_pct.toFixed(1)}% positive)`;
+                    color = "#ef4444";
                 }
-            });
-        }, observerOptions);
-
-        // Observe feature cards and stats cards
-        document.querySelectorAll('.feature-card, .stats-card').forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(card);
-        });
+                
+                insightBox.innerHTML = insight;
+                insightBox.style.background = `linear-gradient(135deg, ${color} 0%, ${color}dd 100%)`;
+                
+                // Hide loading, show results
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('results').style.display = 'block';
+                
+            }, 2000); // Simulate 2 second loading time
+        }
     </script>
 </body>
 </html>
