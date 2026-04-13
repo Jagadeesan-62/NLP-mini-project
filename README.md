@@ -37,9 +37,16 @@ project/
 
 This project uses the **Sentiment140** dataset, which contains 1.6 million labeled tweets.
 
-### Download Instructions
-1. Download the dataset from: http://help.sentiment140.com/for-students
-2. Place the `sentiment140.csv` file in the `data/` folder
+### Automatic Download
+The dataset is automatically downloaded from Google Drive when you first run the application:
+- **Download Link**: https://drive.google.com/file/d/1vmKPAU-nmBxl9Bo9pHqBl8yS74rx_rny/view?usp=sharing
+- **Cache Location**: `data/sentiment140_cache.csv`
+- **Size**: ~80MB (compressed)
+
+### Manual Download (Optional)
+If automatic download fails, you can manually download:
+1. Visit: https://drive.google.com/file/d/1vmKPAU-nmBxl9Bo9pHqBl8yS74rx_rny/view?usp=sharing
+2. Download the file and save as `data/sentiment140_cache.csv`
 3. The dataset should have the following columns (in order):
    - sentiment (0=negative, 4=positive)
    - id

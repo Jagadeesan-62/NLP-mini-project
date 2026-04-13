@@ -1,35 +1,60 @@
 import pandas as pd
 import numpy as np
 import os
+import requests
+import zipfile
+import io
 from typing import Tuple, Optional
 
 class DataHandler:
-    """Handles loading and preprocessing of the Sentiment140 dataset."""
+    """Handles loading and preprocessing of the Sentiment140 dataset from Google Drive."""
     
     def __init__(self, data_path: str = None):
-        # Try multiple possible paths for the dataset
-        if data_path is None:
-            possible_paths = [
-                "data/sentiment140.csv",
-                "sentiment140.csv",
-                "./data/sentiment140.csv",
-                "./sentiment140.csv"
-            ]
-            self.data_path = None
-            for path in possible_paths:
-                if os.path.exists(path):
-                    self.data_path = path
-                    break
-        else:
-            self.data_path = data_path
-            
+        # Google Drive link for the dataset
+        self.drive_url = "https://drive.google.com/file/d/1vmKPAU-nmBxl9Bo9pHqBl8yS74rx_rny/view?usp=sharing"
+        self.direct_download_url = "https://drive.google.com/uc?export=download&id=1vmKPAU-nmBxl9Bo9pHqBl8yS74rx_rny"
+        
+        # Local cache path
+        self.cache_path = "data/sentiment140_cache.csv"
+        self.data_path = self.cache_path
+        
         self.data = None
         # Will determine columns based on actual file format
         self.columns = None
     
+    def download_from_drive(self) -> str:
+        """
+        Download dataset from Google Drive.
+        
+        Returns:
+            Path to downloaded file
+        """
+        print("Downloading dataset from Google Drive...")
+        
+        # Create data directory if it doesn't exist
+        os.makedirs('data', exist_ok=True)
+        
+        try:
+            # Download the file
+            response = requests.get(self.direct_download_url, stream=True)
+            response.raise_for_status()
+            
+            # Save to cache
+            with open(self.cache_path, 'wb') as f:
+                for chunk in response.iter_content(chunk_size=8192):
+                    if chunk:
+                        f.write(chunk)
+            
+            print(f"Dataset downloaded successfully to: {self.cache_path}")
+            return self.cache_path
+            
+        except Exception as e:
+            print(f"Error downloading from Google Drive: {e}")
+            raise
+    
     def load_data(self, sample_size: Optional[int] = None) -> pd.DataFrame:
         """
-        Load the Sentiment140 dataset.
+        Load the Sentiment140 dataset from Google Drive or cache.
         
         Args:
             sample_size: If provided, load only this many rows for faster processing
@@ -38,12 +63,12 @@ class DataHandler:
             Loaded DataFrame
         """
         try:
-            # Check if we found a valid path
-            if self.data_path is None:
-                raise FileNotFoundError("Dataset not found. Please place sentiment140.csv in the project root or data/ folder")
-            
-            if not os.path.exists(self.data_path):
-                raise FileNotFoundError(f"Dataset not found at {self.data_path}")
+            # Check if cached file exists, if not download from Drive
+            if not os.path.exists(self.cache_path):
+                print("Dataset not found in cache, downloading from Google Drive...")
+                self.download_from_drive()
+            else:
+                print(f"Using cached dataset: {self.cache_path}")
             
             print(f"Loading dataset from: {self.data_path}")
             
@@ -154,6 +179,8 @@ if __name__ == "__main__":
         print(df.head())
         print("\nData info:")
         print(handler.get_data_info())
-    except FileNotFoundError:
-        print("Please download the Sentiment140 dataset and place it in the data/ folder")
-        print("Download from: http://help.sentiment140.com/for-students")
+    except Exception as e:
+        print(f"Error: {e}")
+        print("The dataset will be automatically downloaded from Google Drive when you run the application.")
+        print("If download fails, you can manually download from:")
+        print(f"https://drive.google.com/file/d/1vmKPAU-nmBxl9Bo9pHqBl8yS74rx_rny/view?usp=sharing")
