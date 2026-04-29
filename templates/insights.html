@@ -43,105 +43,16 @@
                 </div>
             </form>
             
-            <!-- Quick Insight Suggestions -->
-            <div class="mt-4">
-                <h6 class="text-center mb-3">⚡ Quick Analysis:</h6>
-                <div class="text-center">
-                    <button class="btn btn-outline-primary btn-sm m-1" onclick="quickInsights('iphone, samsung, pixel, oneplus')">
-                        📱 Phone Market
-                    </button>
-                    <button class="btn btn-outline-success btn-sm m-1" onclick="quickInsights('cricket, football, tennis, basketball')">
-                        ⚽ Sports Analysis
-                    </button>
-                    <button class="btn btn-outline-info btn-sm m-1" onclick="quickInsights('movie, netflix, music, game')">
-                        🎬 Entertainment
-                    </button>
-                    <button class="btn btn-outline-warning btn-sm m-1" onclick="quickInsights('love, happy, sad, excited, angry')">
-                        😊 Emotion Study
-                    </button>
-                    <button class="btn btn-outline-danger btn-sm m-1" onclick="quickInsights('work, office, business, career')">
-                        💼 Business Trends
-                    </button>
-                    <button class="btn btn-outline-secondary btn-sm m-1" onclick="quickInsights('food, travel, health, lifestyle')">
-                        🏠 Lifestyle Insights
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Popular Insight Sets -->
-            <div class="mt-4">
-                <h6 class="text-center mb-3">🔥 Popular Insights:</h6>
-                <div class="row">
-                    <div class="col-md-4 col-6 mb-2">
-                        <div class="card text-center p-2">
-                            <h6 class="text-primary">📱 Tech Trends</h6>
-                            <button class="btn btn-sm btn-link" onclick="quickInsights('apple, google, microsoft, amazon')">Big Tech</button>
-                            <button class="btn btn-sm btn-link" onclick="quickInsights('ai, machine, learning, automation')">AI & ML</button>
-                            <button class="btn btn-sm btn-link" onclick="quickInsights('5g, internet, wifi, connectivity')">Connectivity</button>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-6 mb-2">
-                        <div class="card text-center p-2">
-                            <h6 class="text-success">⚽ Sports World</h6>
-                            <button class="btn btn-sm btn-link" onclick="quickInsights('olympics, worldcup, champions, league')">Major Events</button>
-                            <button class="btn btn-sm btn-link" onclick="quickInsights('fitness, gym, workout, health')">Fitness</button>
-                            <button class="btn btn-sm btn-link" onclick="quickInsights('team, player, coach, fan')">Sports Culture</button>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-6 mb-2">
-                        <div class="card text-center p-2">
-                            <h6 class="text-info">🎬 Media & Entertainment</h6>
-                            <button class="btn btn-sm btn-link" onclick="quickInsights('streaming, cinema, theater, concert')">Live Events</button>
-                            <button class="btn btn-sm btn-link" onclick="quickInsights('social, media, influencer, viral')">Social Media</button>
-                            <button class="btn btn-sm btn-link" onclick="quickInsights('gaming, esports, twitch, youtube')">Gaming</button>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-6 mb-2">
-                        <div class="card text-center p-2">
-                            <h6 class="text-warning">😊 Human Emotions</h6>
-                            <button class="btn btn-sm btn-link" onclick="quickInsights('stress, anxiety, depression, mental')">Mental Health</button>
-                            <button class="btn btn-sm btn-link" onclick="quickInsights('family, friends, relationship, dating')">Relationships</button>
-                            <button class="btn btn-sm btn-link" onclick="quickInsights('celebration, party, festival, holiday')">Celebrations</button>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-6 mb-2">
-                        <div class="card text-center p-2">
-                            <h6 class="text-danger">🏠 Daily Life</h6>
-                            <button class="btn btn-sm btn-link" onclick="quickInsights('morning, evening, night, sleep')">Daily Routines</button>
-                            <button class="btn btn-sm btn-link" onclick="quickInsights('cooking, recipe, kitchen, food')">Food & Cooking</button>
-                            <button class="btn btn-sm btn-link" onclick="quickInsights('shopping, fashion, style, trend')">Shopping Trends</button>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-6 mb-2">
-                        <div class="card text-center p-2">
-                            <h6 class="text-secondary">💼 Professional Life</h6>
-                            <button class="btn btn-sm btn-link" onclick="quickInsights('startup, entrepreneur, innovation, success')">Startups</button>
-                            <button class="btn btn-sm btn-link" onclick="quickInsights('education, school, college, university')">Education</button>
-                            <button class="btn btn-sm btn-link" onclick="quickInsights('finance, money, investment, economy')">Finance</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Trending Topics -->
-            <div class="mt-4">
-                <h6 class="text-center mb-3">📈 Trending Topics:</h6>
-                <div class="text-center">
-                    <button class="btn btn-outline-primary btn-sm m-1" onclick="quickInsights('climate, environment, sustainability, green')">
-                        🌍 Environment
-                    </button>
-                    <button class="btn btn-outline-success btn-sm m-1" onclick="quickInsights('crypto, blockchain, nft, metaverse')">
-                        💰 Digital Economy
-                    </button>
-                    <button class="btn btn-outline-info btn-sm m-1" onclick="quickInsights('space, mars, moon, astronomy')">
-                        🚀 Space & Science
-                    </button>
-                    <button class="btn btn-outline-warning btn-sm m-1" onclick="quickInsights('politics, election, government, democracy')">
-                        🏛️ Politics
-                    </button>
-                    <button class="btn btn-outline-danger btn-sm m-1" onclick="quickInsights('pandemic, health, vaccine, medical')">
-                        🏥 Health Crisis
-                    </button>
+            <!-- Suggested Insights -->
+            <div class="mt-5">
+                <h5 class="text-center text-secondary mb-4" style="font-family: 'Outfit', sans-serif;">Try these analysis sets</h5>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <button class="keyword-tag" onclick="quickInsights('apple, google, microsoft, amazon')">💻 Big Tech</button>
+                    <button class="keyword-tag" onclick="quickInsights('iphone, samsung, pixel, oneplus')">📱 Smartphone Market</button>
+                    <button class="keyword-tag" onclick="quickInsights('cricket, football, tennis, basketball')">⚽ Sports Analysis</button>
+                    <button class="keyword-tag" onclick="quickInsights('movie, netflix, music, game')">🎬 Entertainment Trends</button>
+                    <button class="keyword-tag" onclick="quickInsights('love, happy, sad, excited, angry')">😊 Human Emotions</button>
+                    <button class="keyword-tag" onclick="quickInsights('ai, machine, learning, automation')">🤖 AI & ML Trends</button>
                 </div>
             </div>
         </div>
@@ -417,9 +328,9 @@ function generateInsights(keywords) {
         // Update detailed analysis
         const detailedAnalysis = document.getElementById('detailedAnalysis');
         detailedAnalysis.innerHTML = `
-            <div class="table-responsive">
+            <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                 <table class="table table-striped">
-                    <thead class="table-dark">
+                    <thead class="table-dark" style="position: sticky; top: 0; z-index: 1;">
                         <tr>
                             <th>Keyword</th>
                             <th>Total Tweets</th>

@@ -47,13 +47,6 @@ def load_data_and_models():
         visualizer = Visualizer()
         
         # Load data
-        data_path = "data/sentiment140.csv"
-        if not os.path.exists(data_path):
-            data_path = "sentiment140.csv"
-        
-        if not os.path.exists(data_path):
-            return None, None
-        
         df = data_handler.load_data(sample_size=50000)
         df_processed = preprocessor.preprocess_dataframe(df, 'text', 'cleaned_text')
         
@@ -143,7 +136,10 @@ def get_top_keywords_for_tweets(filtered_df, top_n=10):
 
 def create_sentiment_chart(sentiment_data, keyword):
     """Create sentiment distribution chart."""
+    plt.style.use('dark_background')
     fig, ax = plt.subplots(figsize=(8, 6))
+    fig.patch.set_alpha(0.0)
+    ax.patch.set_alpha(0.0)
     sentiments = ['Positive', 'Negative']
     counts = [sentiment_data['positive_count'], sentiment_data['negative_count']]
     colors = ['#10b981', '#ef4444']
@@ -184,12 +180,16 @@ def create_wordcloud(filtered_df):
     wordcloud = WordCloud(
         width=400, 
         height=300, 
-        background_color='white',
+        background_color=None,
+        mode="RGBA",
         max_words=50,
         colormap='viridis'
     ).generate(all_text)
     
+    plt.style.use('dark_background')
     fig, ax = plt.subplots(figsize=(8, 6))
+    fig.patch.set_alpha(0.0)
+    ax.patch.set_alpha(0.0)
     ax.imshow(wordcloud, interpolation='bilinear')
     ax.axis('off')
     ax.set_title('Word Cloud', fontsize=14, fontweight='bold', pad=20)
@@ -206,7 +206,10 @@ def create_wordcloud(filtered_df):
 
 def create_comparison_chart(keywords_data):
     """Create comparison chart for multiple keywords."""
+    plt.style.use('dark_background')
     fig, ax = plt.subplots(figsize=(10, 6))
+    fig.patch.set_alpha(0.0)
+    ax.patch.set_alpha(0.0)
     
     keywords = list(keywords_data.keys())
     positive_percentages = [data['positive_percentage'] for data in keywords_data.values()]
@@ -272,13 +275,16 @@ def dataset():
     
     # Sentiment distribution chart
     sentiment_counts = df['sentiment'].value_counts()
+    plt.style.use('dark_background')
     fig, ax = plt.subplots(figsize=(8, 6))
+    fig.patch.set_alpha(0.0)
+    ax.patch.set_alpha(0.0)
     labels = ['Positive', 'Negative']
     sizes = [sentiment_counts.get(1, 0), sentiment_counts.get(0, 0)]
     colors = ['#10b981', '#ef4444']
     
-    ax.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
-    ax.set_title('Sentiment Distribution', fontsize=14, fontweight='bold')
+    ax.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90, textprops={'color': 'w'})
+    ax.set_title('Sentiment Distribution', fontsize=14, fontweight='bold', color='w')
     
     buffer = BytesIO()
     plt.savefig(buffer, format='png', dpi=100, bbox_inches='tight')
@@ -287,11 +293,14 @@ def dataset():
     plt.close()
     
     # Convert evaluation to JSON-serializable format
+    report = evaluation.get('classification_report', {})
+    macro_avg = report.get('macro avg', {})
+    
     evaluation_serializable = {
-        'accuracy': float(evaluation.accuracy) if hasattr(evaluation, 'accuracy') else 0.0,
-        'precision': float(evaluation.precision) if hasattr(evaluation, 'precision') else 0.0,
-        'recall': float(evaluation.recall) if hasattr(evaluation, 'recall') else 0.0,
-        'f1_score': float(evaluation.f1_score) if hasattr(evaluation, 'f1_score') else 0.0
+        'accuracy': float(evaluation.get('accuracy', 0.0)),
+        'precision': float(macro_avg.get('precision', 0.0)),
+        'recall': float(macro_avg.get('recall', 0.0)),
+        'f1_score': float(macro_avg.get('f1-score', 0.0))
     }
     
     return render_template('dataset.html', 

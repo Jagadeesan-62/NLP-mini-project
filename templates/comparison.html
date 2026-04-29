@@ -47,105 +47,16 @@
                 </div>
             </form>
             
-            <!-- Quick Comparison Suggestions -->
-            <div class="mt-4">
-                <h6 class="text-center mb-3">⚡ Quick Comparisons:</h6>
-                <div class="text-center">
-                    <button class="btn btn-outline-primary btn-sm m-1" onclick="quickCompare('iphone', 'samsung', 'pixel')">
-                        📱 Phone Brands
-                    </button>
-                    <button class="btn btn-outline-success btn-sm m-1" onclick="quickCompare('cricket', 'football', 'tennis')">
-                        ⚽ Sports
-                    </button>
-                    <button class="btn btn-outline-info btn-sm m-1" onclick="quickCompare('movie', 'music', 'game')">
-                        🎬 Entertainment
-                    </button>
-                    <button class="btn btn-outline-warning btn-sm m-1" onclick="quickCompare('love', 'hate', 'happy')">
-                        😊 Emotions
-                    </button>
-                    <button class="btn btn-outline-danger btn-sm m-1" onclick="quickCompare('apple', 'google', 'microsoft')">
-                        💻 Tech Giants
-                    </button>
-                    <button class="btn btn-outline-secondary btn-sm m-1" onclick="quickCompare('netflix', 'prime', 'disney')">
-                        🎥 Streaming Services
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Popular Comparison Sets -->
-            <div class="mt-4">
-                <h6 class="text-center mb-3">🔥 Popular Comparisons:</h6>
-                <div class="row">
-                    <div class="col-md-4 col-6 mb-2">
-                        <div class="card text-center p-2">
-                            <h6 class="text-primary">📱 Mobile</h6>
-                            <button class="btn btn-sm btn-link" onclick="quickCompare('iphone', 'samsung', 'oneplus')">iPhone vs Samsung vs OnePlus</button>
-                            <button class="btn btn-sm btn-link" onclick="quickCompare('android', 'ios', 'windows')">Android vs iOS vs Windows</button>
-                            <button class="btn btn-sm btn-link" onclick="quickCompare('5g', '4g', '3g')">5G vs 4G vs 3G</button>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-6 mb-2">
-                        <div class="card text-center p-2">
-                            <h6 class="text-success">⚽ Sports</h6>
-                            <button class="btn btn-sm btn-link" onclick="quickCompare('messi', 'ronaldo', 'neymar')">Messi vs Ronaldo vs Neymar</button>
-                            <button class="btn btn-sm btn-link" onclick="quickCompare('nba', 'nfl', 'ipl')">NBA vs NFL vs IPL</button>
-                            <button class="btn btn-sm btn-link" onclick="quickCompare('barcelona', 'madrid', 'munich')">Barcelona vs Madrid vs Munich</button>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-6 mb-2">
-                        <div class="card text-center p-2">
-                            <h6 class="text-info">🎬 Entertainment</h6>
-                            <button class="btn btn-sm btn-link" onclick="quickCompare('marvel', 'dc', 'starwars')">Marvel vs DC vs Star Wars</button>
-                            <button class="btn btn-sm btn-link" onclick="quickCompare('netflix', 'hulu', 'amazon')">Netflix vs Hulu vs Prime</button>
-                            <button class="btn btn-sm btn-link" onclick="quickCompare('spotify', 'apple', 'youtube')">Spotify vs Apple Music vs YouTube</button>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-6 mb-2">
-                        <div class="card text-center p-2">
-                            <h6 class="text-warning">😊 Emotions</h6>
-                            <button class="btn btn-sm btn-link" onclick="quickCompare('love', 'like', 'crush')">Love vs Like vs Crush</button>
-                            <button class="btn btn-sm btn-link" onclick="quickCompare('happy', 'excited', 'joyful')">Happy vs Excited vs Joyful</button>
-                            <button class="btn btn-sm btn-link" onclick="quickCompare('sad', 'depressed', 'lonely')">Sad vs Depressed vs Lonely</button>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-6 mb-2">
-                        <div class="card text-center p-2">
-                            <h6 class="text-danger">🏠 Lifestyle</h6>
-                            <button class="btn btn-sm btn-link" onclick="quickCompare('coffee', 'tea', 'juice')">Coffee vs Tea vs Juice</button>
-                            <button class="btn btn-sm btn-link" onclick="quickCompare('pizza', 'burger', 'pasta')">Pizza vs Burger vs Pasta</button>
-                            <button class="btn btn-sm btn-link" onclick="quickCompare('summer', 'winter', 'spring')">Summer vs Winter vs Spring</button>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-6 mb-2">
-                        <div class="card text-center p-2">
-                            <h6 class="text-secondary">💼 Work</h6>
-                            <button class="btn btn-sm btn-link" onclick="quickCompare('office', 'remote', 'hybrid')">Office vs Remote vs Hybrid</button>
-                            <button class="btn btn-sm btn-link" onclick="quickCompare('meeting', 'call', 'email')">Meeting vs Call vs Email</button>
-                            <button class="btn btn-sm btn-link" onclick="quickCompare('boss', 'colleague', 'client')">Boss vs Colleague vs Client</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Trending Topics Comparison -->
-            <div class="mt-4">
-                <h6 class="text-center mb-3">📈 Trending Topics:</h6>
-                <div class="text-center">
-                    <button class="btn btn-outline-primary btn-sm m-1" onclick="quickCompare('ai', 'ml', 'robotics')">
-                        🤖 AI & Technology
-                    </button>
-                    <button class="btn btn-outline-success btn-sm m-1" onclick="quickCompare('crypto', 'bitcoin', 'ethereum')">
-                        💰 Cryptocurrency
-                    </button>
-                    <button class="btn btn-outline-info btn-sm m-1" onclick="quickCompare('climate', 'environment', 'sustainability')">
-                        🌍 Environment
-                    </button>
-                    <button class="btn btn-outline-warning btn-sm m-1" onclick="quickCompare('mental', 'health', 'wellness')">
-                        🧠 Mental Health
-                    </button>
-                    <button class="btn btn-outline-danger btn-sm m-1" onclick="quickCompare('travel', 'vacation', 'holiday')">
-                        ✈️ Travel & Leisure
-                    </button>
+            <!-- Suggested Comparisons -->
+            <div class="mt-5">
+                <h5 class="text-center text-secondary mb-4" style="font-family: 'Outfit', sans-serif;">Try these comparisons</h5>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <button class="keyword-tag" onclick="quickCompare('iphone', 'samsung', 'pixel')">📱 iPhone vs Samsung vs Pixel</button>
+                    <button class="keyword-tag" onclick="quickCompare('cricket', 'football', 'tennis')">⚽ Cricket vs Football vs Tennis</button>
+                    <button class="keyword-tag" onclick="quickCompare('marvel', 'dc', '')">🦸‍♂️ Marvel vs DC</button>
+                    <button class="keyword-tag" onclick="quickCompare('netflix', 'prime', 'disney')">🎬 Netflix vs Prime vs Disney</button>
+                    <button class="keyword-tag" onclick="quickCompare('love', 'hate', '')">❤️ Love vs Hate</button>
+                    <button class="keyword-tag" onclick="quickCompare('office', 'remote', 'hybrid')">💼 Office vs Remote vs Hybrid</button>
                 </div>
             </div>
         </div>
@@ -196,7 +107,7 @@
                 <div class="row mt-4">
                     <div class="col-12">
                         <h5>Detailed Analysis:</h5>
-                        <div id="detailedAnalysis" class="table-responsive">
+                        <div id="detailedAnalysis" class="table-responsive" style="max-height: 400px; overflow-y: auto;">
                             <!-- Detailed analysis table will be populated here -->
                         </div>
                     </div>
